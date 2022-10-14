@@ -15,16 +15,36 @@ app = Flask(__name__)
 cors = CORS(app)
 
 #instancias de modelos
-nuevo_candidato = CandidatoCtrler()
+objeto_candidato = CandidatoCtrler()
 
 @app.route('/')
 def home():
     return '<h1>Home - testing server</h1>'
 
-@app.route('/candidato', methods =['POST'])
+@app.route('/crear-candidato', methods =['POST'])
 def crear_candidato():
     datos = request.get_json()
-    json = nuevo_candidato.create(datos)
+    json = objeto_candidato.create(datos)
+    return jsonify(json)
+@app.route('/candidatos', methods =['GET'])
+def index_candidatos():
+    json = objeto_candidato.index()
+    return jsonify(json)
+
+@app.route('/candidatos/modificar/<int:id>', methods =['PATCH'])
+def modificar_candidato(id):
+    datos = request.get_json()
+    json = objeto_candidato.modificar(id, datos)
+    return jsonify(json)
+
+@app.route('/candidatos/ver/<int:id>', methods =['GET'])
+def ver_candidato(id):
+    json = objeto_candidato.ver(id)
+    return jsonify(json)
+
+@app.route('/candidatos/eliminar/<int:id>', methods =['DELETE'])
+def eliminar_candidato(id):
+    json = objeto_candidato.eliminar(id)
     return jsonify(json)
 
 
