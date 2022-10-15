@@ -1,4 +1,4 @@
-from Modelos.modelogenerico import ModeloGenerico
+from Votaciones.Modelos.modelogenerico import ModeloGenerico
 
 
 class Candidato(ModeloGenerico):

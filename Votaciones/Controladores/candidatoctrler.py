@@ -1,4 +1,4 @@
-from Modelos.candidato import Candidato
+from Votaciones.Modelos.candidato import Candidato
 
 class CandidatoCtrler():
     def __init__(self):
