@@ -5,7 +5,7 @@ from flask import jsonify
 
 from Votaciones.Controladores.candidatoctrler import CandidatoCtrler
 
-bp_candidatos = Blueprint('candidato', __name__, url_prefix='/candidatos')
+bp_candidatos = Blueprint('candidatos', __name__, url_prefix='/candidatos')
 
 #instancias de modelos
 objeto_candidato = CandidatoCtrler()
