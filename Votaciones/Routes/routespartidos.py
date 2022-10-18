@@ -9,7 +9,7 @@ bp_partido = Blueprint('partido', __name__, url_prefix='/partido')
 #instancias de modelos
 objeto_partido = partidoctrler()
 
-@bp_partido.route('/test')
+@bp_partido.route('/test-partidos')
 def home():
     return '<h1>Home - testing server</h1>'
 

@@ -11,7 +11,7 @@ bp_candidatos = Blueprint('candidatos', __name__, url_prefix='/candidatos')
 objeto_candidato = CandidatoCtrler()
 
 
-@bp_candidatos.route('/test')
+@bp_candidatos.route('/test-candidatos')
 def home():
     return '<h1>Home - testing server</h1>'
 
