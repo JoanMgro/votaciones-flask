@@ -4,7 +4,7 @@ from flask import request
 from flask import jsonify
 
 from Votaciones.Controladores.partidoctrler import partidoctrler
-bp_partido = Blueprint('partido', __name__, url_prefix='/partido')
+bp_partido = Blueprint('partido', __name__, url_prefix='/partidos')
 
 #instancias de modelos
 objeto_partido = partidoctrler()
