@@ -1,5 +1,12 @@
 
 from flask import Flask
+from flask_mongoengine import MongoEngine
+
+
+#codigo del mongo
+# client = pymongo.MongoClient("mongodb+srv://grupociclo4:<password>@clusterciclo4a.lwuilv8.mongodb.net/?retryWrites=true&w=majority")
+# db = client.test
+
 
 #imports de las vars bp_xxx de paquete Routes
 from Votaciones.Routes.routescandidato import bp_candidatos
