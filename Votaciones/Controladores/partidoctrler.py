@@ -1,9 +1,5 @@
 from Votaciones.Modelos.partido import partido
-#crear
-#ver
-#modificar
-#listar
-#eliminar
+
 class partidoctrler():
     def __init__(self):
         print(f'Constructor de {self.__class__}')
