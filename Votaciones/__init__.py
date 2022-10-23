@@ -12,6 +12,9 @@ from flask_mongoengine import MongoEngine
 from Votaciones.Routes.routescandidato import bp_candidatos
 from Votaciones.Routes.routesmesa import bp_mesas
 from Votaciones.Routes.routespartidos import bp_partido
+from Votaciones.Routes.routesresultado import bp_resultados
+
+
 def create_app():
     # create and configure the app
     app = Flask(__name__, instance_relative_config=False)
@@ -20,6 +23,7 @@ def create_app():
     app.register_blueprint(bp_candidatos)
     app.register_blueprint(bp_mesas)
     app.register_blueprint(bp_partido)
+    app.register_blueprint(bp_resultados)
 
 
     return app
