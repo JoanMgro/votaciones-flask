@@ -1,60 +1,41 @@
 from Votaciones.Modelos.mesa import Mesa
+from Votaciones.Repositorios.MesaRepositorio import MesaRepositorio
 
 class MesaCtrler():
     def __init__(self):
-        print(f'Constructor de {self.__class__}')
+        print('Creando el controlador de Mesa')
+        self.repositorio = MesaRepositorio()
 
     def index(self):
-        print('Listando Mesas')
-        #leer de la DB.
-        lista_mesas = [
-            {'id': 1, 'cantidad_inscritos' : 4},
-            {'id': 2, 'cantidad_inscritos' : 5},
-            {'id': 3, 'cantidad_inscritos' : 8},
-        ]
-        return lista_mesas
+        print("Controlador Listando todos los Mesas")
+        return self.repositorio.findAll()
 
     def create(self, mesa):
-        print('creando mesa')
-        obj_mesa = Mesa(mesa)
-        return obj_mesa.__dict__
+        print("Controlador para Creando un Mesa")
+        mes = Mesa(mesa)
+        return self.repositorio.save(mes)
 
-    def modificar(self, id, dato_mesa):
-        print(f'modificando mesa con id {id}')
-        obj_mesa = Mesa(dato_mesa)
-        return obj_mesa.__dict__
+    def modificar(self, id, mesa_data):
+        print("Actualizando candidato con identificador ", id)
+        mesa = Candidato(self.repositorio.findById(id))
+        mesa.nombre = mesa_data["nombre"]
+        mesa.apellido = mesa_data["apellido"]
+        mesa.cedula = mesa_data["cedula"]
+        mesa.numero_resolucion = mesa_data["numero_resolucion"]
+
+        return self.repositorio.save(candidato)
+
 
     def ver(self, id):
         #leer de la DB.
-        lista_mesas = [
-            {'id': 1, 'cantidad_inscritos' : 4},
-            {'id': 2, 'cantidad_inscritos' : 5},
-            {'id': 3, 'cantidad_inscritos' : 8},
-        ]
-        for obj in lista_mesas:
-            if obj.get('id') == id:
-                obj_mesa = Mesa(obj)
-                return obj_mesa.__dict__
-        else:
-                resp = {'Message' : 'mesa no encontrado'}
-                return  resp
+        print("Consultando el Mesa con identificador ", id)
+        mesa = Mesa(self.repositorio.findById(id))
+        return mesa.__dict__
 
 
-    def eliminar(sef, id):
-        lista_mesas = [
-            {'id': 1, 'cantidad_inscritos' : 4},
-            {'id': 2, 'cantidad_inscritos' : 5},
-            {'id': 3, 'cantidad_inscritos' : 8},
-        ]
-        for obj in lista_mesas:
-            if obj.get('id') == id:
-                resp = {'Message': 'mesa eliminado'}
-                return resp
-        else:
-            resp = {'Message': 'mesa no encontrada'}
-            return resp
-
-
+    def eliminar(self, id):
+        print("Eliminando el Mesa con identificador ", id)
+        return self.repositorio.delete(id)
 
 
 

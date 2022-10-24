@@ -1,54 +1,42 @@
-from Votaciones.Modelos.partido import partido
-
-class partidoctrler():
+from Votaciones.Modelos.partido import Partido
+from Votaciones.Repositorios.PartidoRepositorio import PartidoRepositorio
+class PartidoCtrler():
     def __init__(self):
-        print(f'Constructor de {self.__class__}')
+        print('Creando el controlador de Partido')
+        self.repositorio = PartidoRepositorio()
+
+    def index(self):
+        print("Controlador Listando todos los Partidos")
+        return self.repositorio.findAll()
 
     def create(self, partido):
-        print('creando Partido')
-        obj_partido = partido(partido)
-        return obj_partido.__dict__
+        print("Controlador para Creando un Partido")
+        par = Partido(partido)
+        return self.repositorio.save(par)
+
+    def modificar(self, id, partido_data):
+        print("Actualizando Partido con identificador ", id)
+        partido = Partido(self.repositorio.findById(id))
+        partido.id = partido_data["id"]
+        partido.nombre = partido_data["nombre"]
+        partido.lema = partido_data["lema"]
+
+
+        return self.repositorio.save(partido)
+
 
     def ver(self, id):
-        #Query de la DB.
-        lista_partido = [
-            {'id': 1, 'nombre': 'union', 'lema': 'pueblo'},
-            {'id': 2, 'nombre': 'futuro', 'lema': 'nuestro'}
-        ]
-        for obj in lista_partido:
-            if obj.get('id') == id:
-                obj_partido = partido(obj)
-                return obj_partido.__dict__
-        else:
-                resp = {'Message' : 'Partido no encontrado'}
-                return  resp
+        #leer de la DB.
+        print("Consultando el Partido con identificador ", id)
+        partido = Partido(self.repositorio.findById(id))
+        return partido.__dict__
 
-    def modificar(self, id, dato_partido):
-        print(f'modificando Partido con id {id}')
-        obj_partido = partido(dato_partido)
-        return obj_partido.__dict__
 
-    def listar(self):
-        print('Listando Partidos')
-        #Query de la DB.
-        lista_partido = [
-            {'id' : 1, 'nombre': 'union','lema': 'pueblo'},
-            {'id' : 2, 'nombre': 'futuro','lema': 'nuestro'}
-        ]
-        return lista_partido
+    def eliminar(self, id):
+        print("Eliminando el Partido con identificador ", id)
+        return self.repositorio.delete(id)
 
-    def eliminar(sef, id):
-        lista_partido = [
-            {'id': 1, 'nombre': 'union', 'lema': 'pueblo'},
-            {'id': 2, 'nombre': 'futuro', 'lema': 'nuestro'}
-        ]
-        for obj in lista_partido:
-            if obj.get('id') == id:
-                resp = {'Message': 'Partido eliminado'}
-                return resp
-        else:
-            resp = {'Message': 'Partido no encontrado'}
-            return resp
+
 
 
 
