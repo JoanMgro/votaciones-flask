@@ -8,7 +8,7 @@ class CandidatoCtrler():
         print('Listando Candidatos')
         #leer de la DB.
         lista_canditatos = [
-            {'id' : 1111, 'nombre': 'Juan'},
+            {'id' :1111, 'nombre': 'Juan'},
             {'id' : 2222, 'nombre': 'Pedro'},
             {'id' : 3333, 'nombre': 'Jose'},
         ]
