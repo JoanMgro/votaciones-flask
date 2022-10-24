@@ -1,60 +1,41 @@
 from Votaciones.Modelos.candidato import Candidato
+from Votaciones.Repositorios.CandidatoRepositorio import CandidatoRepositorio
 
 class CandidatoCtrler():
     def __init__(self):
-        print(f'Constructor de {self.__class__}')
+        print('Creando el controlador de Candidato')
+        self.repositorio = CandidatoRepositorio()
 
     def index(self):
-        print('Listando Candidatos')
-        #leer de la DB.
-        lista_canditatos = [
-            {'id' :1111, 'nombre': 'Juan'},
-            {'id' : 2222, 'nombre': 'Pedro'},
-            {'id' : 3333, 'nombre': 'Jose'},
-        ]
-        return lista_canditatos
+        print("Controlador Listando todos los candidatos")
+        return self.repositorio.findAll()
 
     def create(self, candidato):
-        print('creando candidato')
-        obj_candidato = Candidato(candidato)
-        return obj_candidato.__dict__
+        print("Controlador para Creando un candidato")
+        can = Candidato(candidato)
+        return self.repositorio.save(can)
 
-    def modificar(self, id, dato_candidato):
-        print(f'modificando candidato con id {id}')
-        obj_candidato = Candidato(dato_candidato)
-        return obj_candidato.__dict__
+    def modificar(self, id, candidato_data):
+        print("Actualizando candidato con identificador ", id)
+        candidato = Candidato(self.repositorio.findById(id))
+        candidato.nombre = candidato_data["nombre"]
+        candidato.apellido = candidato_data["apellido"]
+        candidato.cedula = candidato_data["cedula"]
+        candidato.numero_resolucion = candidato_data["numero_resolucion"]
+
+        return self.repositorio.save(candidato)
+
 
     def ver(self, id):
         #leer de la DB.
-        lista_canditatos = [
-            {'id' : 1111, 'nombre': 'Juan'},
-            {'id' : 2222, 'nombre': 'Pedro'},
-            {'id' : 3333, 'nombre': 'Jose'},
-        ]
-        for obj in lista_canditatos:
-            if obj.get('id') == id:
-                obj_candidato = Candidato(obj)
-                return obj_candidato.__dict__
-        else:
-                resp = {'Message' : 'Candidato no encontrado'}
-                return  resp
+        print("Consultando el candidato con identificador ", id)
+        candidato = Candidato(self.repositorio.findById(id))
+        return candidato.__dict__
 
 
-    def eliminar(sef, id):
-        lista_canditatos = [
-            {'id': 1111, 'nombre': 'Juan'},
-            {'id': 2222, 'nombre': 'Pedro'},
-            {'id': 3333, 'nombre': 'Jose'},
-        ]
-        for obj in lista_canditatos:
-            if obj.get('id') == id:
-                resp = {'Message': 'Candidato eliminado'}
-                return resp
-        else:
-            resp = {'Message': 'Candidato no encontrado'}
-            return resp
-
-
+    def eliminar(self, id):
+        print("Eliminando el candidato con identificador ", id)
+        return self.repositorio.delete(id)
 
 
 

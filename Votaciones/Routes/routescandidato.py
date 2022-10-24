@@ -11,9 +11,9 @@ bp_candidatos = Blueprint('candidatos', __name__, url_prefix='/candidatos')
 objeto_candidato = CandidatoCtrler()
 
 
-@bp_candidatos.route('/test-candidatos')
-def home():
-    return '<h1>Home - testing server</h1>'
+# @bp_candidatos.route('/test-candidatos')
+# def home():
+#     return '<h1>Home - testing server</h1>'
 
 
 @bp_candidatos.route('/crear', methods =['POST'])
@@ -27,18 +27,18 @@ def index_candidatos():
     json = objeto_candidato.index()
     return jsonify(json)
 
-@bp_candidatos.route('/modificar/<int:id>', methods =['PATCH'])
+@bp_candidatos.route('/modificar/<id>', methods =['PATCH'])
 def modificar_candidato(id):
     datos = request.get_json()
     json = objeto_candidato.modificar(id, datos)
     return jsonify(json)
 
-@bp_candidatos.route('/ver/<int:id>', methods =['GET'])
+@bp_candidatos.route('/ver/<id>', methods =['GET'])
 def ver_candidato(id):
     json = objeto_candidato.ver(id)
     return jsonify(json)
 
-@bp_candidatos.route('/eliminar/<int:id>', methods =['DELETE'])
+@bp_candidatos.route('/eliminar/<id>', methods =['DELETE'])
 def eliminar_candidato(id):
     json = objeto_candidato.eliminar(id)
     return jsonify(json)
