@@ -17,13 +17,13 @@ class MesaCtrler():
 
     def modificar(self, id, mesa_data):
         print("Actualizando candidato con identificador ", id)
-        mesa = Candidato(self.repositorio.findById(id))
+        mesa = Mesa(self.repositorio.findById(id))
         mesa.nombre = mesa_data["nombre"]
         mesa.apellido = mesa_data["apellido"]
         mesa.cedula = mesa_data["cedula"]
         mesa.numero_resolucion = mesa_data["numero_resolucion"]
 
-        return self.repositorio.save(candidato)
+        return self.repositorio.save(mesa)
 
 
     def ver(self, id):
