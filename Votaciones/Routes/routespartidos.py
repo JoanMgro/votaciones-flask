@@ -22,21 +22,21 @@ def crear_partido():
 
 @bp_partido.route('', methods =['GET'])
 def listar_partido():
-    json = objeto_partido.listar()
+    json = objeto_partido.index()
     return jsonify(json)
 
-@bp_partido.route('/modificar/<int:id>', methods =['PUT'])
+@bp_partido.route('/modificar/<id>', methods =['PUT'])
 def modificar_partido(id):
     datos = request.get_json()
     json = objeto_partido.modificar(id, datos)
     return jsonify(json)
 
-@bp_partido.route('/ver/<int:id>', methods =['GET'])
+@bp_partido.route('/ver/<id>', methods =['GET'])
 def ver_partido(id):
     json = objeto_partido.ver(id)
     return jsonify(json)
 
-@bp_partido.route('/eliminar/<int:id>', methods =['DELETE'])
+@bp_partido.route('/eliminar/<id>', methods =['DELETE'])
 def eliminar_partido(id):
     json = objeto_partido.eliminar(id)
     return jsonify(json)

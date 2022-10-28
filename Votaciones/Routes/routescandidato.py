@@ -43,5 +43,11 @@ def eliminar_candidato(id):
     json = objeto_candidato.eliminar(id)
     return jsonify(json)
 
+@bp_candidatos.route('/<id_candidato>/partidos/<id_partido>', methods=['PUT'])
+def asignarPartidoCandidato(id_candidato, id_partido):
+    json = objeto_candidato.asignarPartido(id_candidato, id_partido)
+    return jsonify(json)
+
+
 
 
