@@ -3,11 +3,11 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 
-from Votaciones.Controladores.partidoctrler import partidoctrler
+from Votaciones.Controladores.partidoctrler import PartidoCtrler
 bp_partido = Blueprint('partido', __name__, url_prefix='/partidos')
 
 #instancias de modelos
-objeto_partido = partidoctrler()
+objeto_partido = PartidoCtrler()
 
 @bp_partido.route('/test-partidos')
 def home():
