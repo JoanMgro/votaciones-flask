@@ -25,7 +25,7 @@ def listar_partido():
     json = objeto_partido.listar()
     return jsonify(json)
 
-@bp_partido.route('/modificar/<int:id>', methods =['PATCH'])
+@bp_partido.route('/modificar/<int:id>', methods =['PUT'])
 def modificar_partido(id):
     datos = request.get_json()
     json = objeto_partido.modificar(id, datos)

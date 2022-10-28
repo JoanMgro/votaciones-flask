@@ -27,7 +27,7 @@ def index_candidatos():
     json = objeto_candidato.index()
     return jsonify(json)
 
-@bp_candidatos.route('/modificar/<id>', methods =['PATCH'])
+@bp_candidatos.route('/modificar/<id>', methods =['PUT'])
 def modificar_candidato(id):
     datos = request.get_json()
     json = objeto_candidato.modificar(id, datos)

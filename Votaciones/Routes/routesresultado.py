@@ -27,18 +27,18 @@ def index_resultado():
     json = objeto_resultado.index()
     return jsonify(json)
 
-@bp_resultados.route('/modificar/<int:id>', methods =['PATCH'])
+@bp_resultados.route('/modificar/<id>', methods =['PUT'])
 def modificar_resultado(id):
     datos = request.get_json()
     json = objeto_resultado.modificar(id, datos)
     return jsonify(json)
 
-@bp_resultados.route('/ver/<int:id>', methods =['GET'])
+@bp_resultados.route('/ver/<id>', methods =['GET'])
 def ver_resultado(id):
     json = objeto_resultado.ver(id)
     return jsonify(json)
 
-@bp_resultados.route('/eliminar/<int:id>', methods =['DELETE'])
+@bp_resultados.route('/eliminar/<id>', methods =['DELETE'])
 def eliminar_resultado(id):
     json = objeto_resultado.eliminar(id)
     return jsonify(json)

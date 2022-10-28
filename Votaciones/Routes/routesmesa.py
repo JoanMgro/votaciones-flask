@@ -27,18 +27,18 @@ def index_mesas():
     json = objeto_mesas.index()
     return jsonify(json)
 
-@bp_mesas.route('/modificar/<int:id>', methods =['PATCH'])
+@bp_mesas.route('/modificar/<id>', methods =['PUT'])
 def modificar_mesas(id):
     datos = request.get_json()
     json = objeto_mesas.modificar(id, datos)
     return jsonify(json)
 
-@bp_mesas.route('/ver/<int:id>', methods =['GET'])
+@bp_mesas.route('/ver/<id>', methods =['GET'])
 def ver_mesas(id):
     json = objeto_mesas.ver(id)
     return jsonify(json)
 
-@bp_mesas.route('/eliminar/<int:id>', methods =['DELETE'])
+@bp_mesas.route('/eliminar/<id>', methods =['DELETE'])
 def eliminar_mesas(id):
     json = objeto_mesas.eliminar(id)
     return jsonify(json)
