@@ -17,7 +17,7 @@ class PartidoCtrler():
     def modificar(self, id, partido_data):
         print("Actualizando Partido con identificador ", id)
         partido = Partido(self.repositorio.findById(id))
-        partido.id = partido_data["id"]
+        # partido.id = partido_data["id"] #creo que esto es un error ya hay un id.
         partido.nombre = partido_data["nombre"]
         partido.lema = partido_data["lema"]
 

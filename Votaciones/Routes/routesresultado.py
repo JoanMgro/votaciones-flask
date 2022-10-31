@@ -16,10 +16,11 @@ def home():
     return '<h1>Resultados - testing server</h1>'
 
 
-@bp_resultados.route('/crear', methods =['POST'])
-def crear_resultado():
+
+@bp_resultados.route("/crear/<string:id_candidato>/mesa/<string:id_mesa>", methods=['POST'])
+def crear_resultado(id_candidato, id_mesa):
     datos = request.get_json()
-    json = objeto_resultado.create(datos)
+    json = objeto_resultado.create(datos, id_mesa, id_candidato)
     return jsonify(json)
 
 @bp_resultados.route('', methods =['GET'])
@@ -27,10 +28,10 @@ def index_resultado():
     json = objeto_resultado.index()
     return jsonify(json)
 
-@bp_resultados.route('/modificar/<id>', methods =['PUT'])
-def modificar_resultado(id):
+@bp_resultados.route('/modificar/<id>/candidato/<id_candidato>/mesa/<id_mesa>', methods =['PUT'])
+def modificar_resultado(id, id_candidato, id_mesa):
     datos = request.get_json()
-    json = objeto_resultado.modificar(id, datos)
+    json = objeto_resultado.modificar(id, datos, id_mesa, id_candidato)
     return jsonify(json)
 
 @bp_resultados.route('/ver/<id>', methods =['GET'])

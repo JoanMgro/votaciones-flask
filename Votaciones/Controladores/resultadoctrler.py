@@ -1,55 +1,60 @@
 from Votaciones.Modelos.resultado import Resultado
+from Votaciones.Modelos.candidato import Candidato
+from Votaciones.Modelos.mesa import Mesa
+from Votaciones.Repositorios.ResultadoRepositorio import ResultadoRepositorio
+from Votaciones.Repositorios.MesaRepositorio import MesaRepositorio
+from Votaciones.Repositorios.CandidatoRepositorio import CandidatoRepositorio
+
 
 class ResultadoCtrler():
     def __init__(self):
-        print(f'Constructor de {self.__class__}')
+
+        self.resultado_repo = ResultadoRepositorio()
+        self.mesa_repo = MesaRepositorio()
+        self.candidato_repo = CandidatoRepositorio()
 
     def index(self):
-        print('Listando Resultados')
-        #leer de la DB.
-        lista_resultados = [
-            {'id': 1, 'numero_mesa' : 4, 'id_partido': 12},
-            {'id': 2, 'numero_mesa' : 5, 'id_partido': 76},
-            {'id': 3, 'numero_mesa' : 8, 'id_partido': 42},
-        ]
-        return lista_resultados
+        print("Controlador Listando todos los resultados")
+        return self.resultado_repo.findAll()
 
-    def create(self, resultado):
-        print('creando ')
-        obj_resultado = Resultado(resultado)
-        return obj_resultado.__dict__
 
-    def modificar(self, id, dato_resultado):
-        print(f'modificando resultado con id {id}')
-        obj_resultado = Resultado(dato_resultado)
-        return obj_resultado.__dict__
+    """
+    Asignacion mesa y candidato a resultado al crear un resultado
+    """
+    def create(self, data_resultado, id_mesa, id_candidato):
+        print("Controlador para Creando un resultado")
+        resultado = Resultado(data_resultado)
+        candidato = Candidato(self.candidato_repo.findById(id_candidato))
+        mesa = Mesa(self.mesa_repo.findById(id_mesa))
+
+
+        resultado.candidato = candidato
+        resultado.mesa = mesa
+        return self.resultado_repo.save(resultado)
+
+
+
+    """
+    Modificación de Resultado (Candidato y mesa)
+    """
+    def modificar(self, id, data_resultado, id_mesa, id_candidato):
+        print("Actualizando Resultado con id ", id)
+        resultado = Resultado(self.resultado_repo.findById(id))
+        resultado.votos = data_resultado["votos"]
+        #otros campos de resultados que deben de ir.
+        candidato = Candidato(self.candidato_repo.findById(id_candidato))
+        mesa = Mesa(self.mesa_repo.findById(id_mesa))
+        resultado.candidato = candidato
+        resultado.mesa = mesa
+        return self.resultado_repo.save(resultado)
+
+
 
     def ver(self, id):
-        #leer de la DB.
-        lista_resultados = [
-            {'id': 1, 'numero_mesa' : 4, 'id_partido': 12},
-            {'id': 2, 'numero_mesa' : 5, 'id_partido': 76},
-            {'id': 3, 'numero_mesa' : 8, 'id_partido': 42},
-        ]
-        for obj in lista_resultados:
-            if obj.get('id') == id:
-                obj_resultado = Resultado(obj)
-                return obj_resultado.__dict__
-        else:
-                resp = {'Message' : 'resultado no encontrado'}
-                return  resp
+        print("Consultando resultado con identificador ", id)
+        resultado = Resultado(self.resultado_repo.findById(id))
+        return resultado.__dict__
 
-
-    def eliminar(sef, id):
-        lista_resultados = [
-            {'id': 1, 'numero_mesa' : 4, 'id_partido': 12},
-            {'id': 2, 'numero_mesa' : 5, 'id_partido': 76},
-            {'id': 3, 'numero_mesa' : 8, 'id_partido': 42},
-        ]
-        for obj in lista_resultados:
-            if obj.get('id') == id:
-                resp = {'Message': 'resultado eliminado'}
-                return resp
-        else:
-            resp = {'Message': 'resultado no encontrada'}
-            return resp
+    def eliminar(self, id):
+        print("Eliminando resultado con id ", id)
+        return self.resultado_repo.delete(id)
