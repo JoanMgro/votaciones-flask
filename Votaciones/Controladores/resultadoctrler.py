@@ -58,3 +58,26 @@ class ResultadoCtrler():
     def eliminar(self, id):
         print("Eliminando resultado con id ", id)
         return self.resultado_repo.delete(id)
+
+    def consultaResultadosMesa(self, id_mesa):
+        print("Consultando todos los Resultados Mesa")
+        return self.resultado_repo.getResultadosMesa(id_mesa)
+
+
+    def consultarSumaVotosMesa(self, id_mesa):
+        print("Consultando todos los votos Mesa")
+        return self.resultado_repo.sumatoriaVotos(id_mesa)
+
+
+    def consultarTotalVotosCandidatosMesas(self):
+        print("Consultando max voto mesa")
+        return self.resultado_repo.getVotacionTotalCandidatos()
+
+    def consultarListaParticipacionMesa(self):
+        print("Consultando participacion por mesa")
+        return self.resultado_repo.getListaParticipacionMesas()
+
+    # def consultarVotacionPartidos(self):
+    #     print("Consultando votacion partidos")
+    #     return self.resultado_repo.getVotacionPartidos()
+    #

@@ -43,3 +43,28 @@ def ver_resultado(id):
 def eliminar_resultado(id):
     json = objeto_resultado.eliminar(id)
     return jsonify(json)
+
+@bp_resultados.route('/mesa/<id_mesa>', methods =['GET'])
+def resultadosMesa(id_mesa):
+    json = objeto_resultado.consultaResultadosMesa(id_mesa)
+    return jsonify(json)
+
+@bp_resultados.route('/total-votos-mesa/<id_mesa>', methods =['GET']) #lista votos por candidato en una mesa y sus partidos
+def votosMesa(id_mesa):
+    json = objeto_resultado.consultarSumaVotosMesa(id_mesa)
+    return jsonify(json)
+
+@bp_resultados.route('/votos-total-candidatos', methods =['GET']) #lista Votos totales x candidato y mesa en la que sacaron mayor votacion
+def maxvotosMesa():
+    json = objeto_resultado.consultarTotalVotosCandidatosMesas()
+    return jsonify(json)
+
+@bp_resultados.route('/participacion-mesa', methods =['GET']) #lista
+def participacionMesa():
+    json = objeto_resultado.consultarListaParticipacionMesa()
+    return jsonify(json)
+
+# @bp_resultados.route('/votacion-partidos', methods =['GET']) #lista
+# def votacionPartidos():
+#     json = objeto_resultado.consultarVotacionPartidos()
+#     return jsonify(json)
