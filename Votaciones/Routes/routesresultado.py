@@ -64,7 +64,3 @@ def participacionMesa():
     json = objeto_resultado.consultarListaParticipacionMesa()
     return jsonify(json)
 
-# @bp_resultados.route('/votacion-partidos', methods =['GET']) #lista
-# def votacionPartidos():
-#     json = objeto_resultado.consultarVotacionPartidos()
-#     return jsonify(json)

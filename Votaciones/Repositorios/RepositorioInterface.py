@@ -74,24 +74,60 @@ class RepositorioInterface(Generic[T]):
                 x = self.getValuesDBRef(x)
                 data.append(x)
             return data
+        """
+        cuando se llama query de resultados..
+        
+        se envia {'mesa.$id': ObjectId('635c30a33973c3dc48e8546d')}
+        
+                [{'_id': '6367da8c806018d1443d6287',
+                  'votos': 1,
+                  'candidato': {'_id': '635ffed0701a2b3274c62901',
+                                'cedula': '9087966565',
+                                'numero_resolucion': '000003',
+                                'nombre': 'yrpo',
+                                'apellido': 'Popita',
+                                'partido': {'_id': '635ffdbf701a2b3274c628fd',
+                                            'lema': 'verde azul',
+                                            'nombre': 'centro derecha'}},
+                  'mesa': {'_id': '635c30a33973c3dc48e8546d',
+                           'numero': '02',
+                           'cantidad_inscritos': '26'}},
+                 ]
+        
+        """
 
         def query(self, theQuery):
             laColeccion = self.baseDatos[self.coleccion]
             data = []
-            for x in laColeccion.find(theQuery):
+            for x in laColeccion.find(theQuery): #{'mesa.$id': ObjectId('635c30a33973c3dc48e8546d')}
                 x["_id"] = x["_id"].__str__()
-                x = self.transformObjectIds(x)
-                x = self.getValuesDBRef(x)
+                """
+                esto es x
+                {'_id': '6367da8c806018d1443d6287', 
+                    'votos': 1, 
+                    'candidato': DBRef('candidato', ObjectId('635ffed0701a2b3274c62901')), 
+                    'mesa': DBRef('mesa', ObjectId('635c30a33973c3dc48e8546d'))}    
+                    x contiene todos los candidatos votados en la mesa.                           
+                """
+
+                x = self.transformObjectIds(x) #aparentemente no le hace nada a x
+
+                x = self.getValuesDBRef(x) #me saca un objeto con toda la info de los dref .. me lo expande.
+
                 data.append(x)
             return data
 
-        def queryAggregation(self, theQuery):
+        def queryAggregation(self, theQuery): #[{'$group': {'_id': '$mesa.$id', 'total_votos': {'$sum': '$votos'}}}, {'$sort': SON([('total_votos', 1)])}]
             laColeccion = self.baseDatos[self.coleccion]
             data = []
+            print(theQuery)
             for x in laColeccion.aggregate(theQuery):
                 x["_id"] = x["_id"].__str__()
+
                 x = self.transformObjectIds(x)
+
                 x = self.getValuesDBRef(x)
+
                 data.append(x)
             return data
 
